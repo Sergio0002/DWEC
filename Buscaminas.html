@@ -6,44 +6,10 @@
     <title>Buscaminas</title>
 
     <link rel="stylesheet" href="css/Buscaminas.css">
-    <!-- <script src="js/Buscaminas.js"></script> -->
+    <script src="js/Buscaminas.js"></script>
 </head>
 
 <body>
-
-    <script>
-        function minasAleatorias() {
-
-            var minas = 5;
-            var aleatorios = [];
-
-            while (aleatorios.length < minas) {
-
-                var numeroAleatorio = Math.ceil(Math.random() * 25);
-                var existe = false;
-
-                for (var i = 0; i < aleatorios.length; i++) {
-
-                    if (aleatorios[i] == numeroAleatorio) {
-                        existe = true;
-                        break;
-                    }
-                }
-
-                if (!existe) {
-
-                    aleatorios[aleatorios.length] = numeroAleatorio;
-                }
-            }
-
-            for (let i = 0; i < aleatorios.length; i++) {
-
-                document.getElementById(aleatorios[i]).value = "Mina";
-            }
-
-        }
-
-    </script>
 
     <h1>Buscaminas</h1>
 
