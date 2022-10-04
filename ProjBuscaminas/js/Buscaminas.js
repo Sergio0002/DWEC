@@ -1,37 +1,53 @@
-function minasAleatorias() {
+let maxFilas = prompt("¿Cuántas filas quieres?");
+let maxColumnas = prompt("¿Cuántas columnas quieres?");
+let numMinas = prompt("¿Cuántas minas quieres introducir?");
 
-    var minas = 5; // número de minas que queremos jugar
-    var aleatorios = [] // array que almacena los números aleatorios que se corresponderán con los ID de la tabla (td's)
-    
-    // Bucle que comprobará que los número aleatorios que almacenará el array no estarán duplicados.
-    while (aleatorios.length < minas) {
-    
-        var numeroAleatorio = Math.ceil(Math.random() * 25); // generamos aleatorio
-        var existe = false; // empezamos en falso ya que no hay número duplicado (aún)
-    
-        for (var i = 0; i < aleatorios.length; i++) {
-    
-            if (aleatorios[i] == numeroAleatorio) { // comprobamos que el array[] no contiene un número como el aleatorio
-    
-                existe = true; // si detecta un número duplicado en el array, ponemos el semaforo en true para el siguiente if
-    
-                break; // salimos del for
-            }
-        }
-    
-        if (!existe) { // comprobamos que el semaforo está en false
-    
-            aleatorios[aleatorios.length] = numeroAleatorio; // si el semaforo está en false, almacenamos el aleatorio    }
-        }
-    }
-    
+// document.write("<h1>Buscaminas</h1>");
 
-    for (var i = 0; i < aleatorios.length; i++) {
+// document.write("<table id='buscaminas'>");
 
-        document.getElementById(aleatorios[i]).value = "Mina";
+// for (let i = 0; i < maxFilas; i++) {
+
+//     document.write("<tr>");
+
+//     for (let j = 0; j < maxColumnas; j++) {
+
+//         document.write("<td></td>");
+
+//     }
+
+//     document.write("</tr>");
+// }
+// document.write("</table>");
+
+// Crear array bidimensional para guardar las minas
+
+let arrayTablero = [];
+let contadorMinas = 0;
+let posFila;
+let posColumna;
+
+for (let fila = 0; fila < maxFilas; fila++) {
+
+    arrayTablero[fila] = [];
+
+    for (let columna = 0; columna < maxColumnas; columna++) {
+
+        arrayTablero[fila][columna] = "";
     }
 }
 
-// console.log("números aleatorios: " + aleatorios);
+while (contadorMinas < numMinas) {
 
+     posFila = Math.floor(Math.random() * maxFilas);
+     posColumna = Math.floor(Math.random() * maxColumnas);
 
+    if (arrayTablero[posFila][posColumna] != "Mina") {
+        arrayTablero[posFila][posColumna] = "Mina";
+        contadorMinas++;
+    }
+
+    console.log(arrayTablero);
+    console.log(contadorMinas);
+
+}

@@ -3,15 +3,16 @@ body {
     background-image: url(../img/textura_tapiz_verde.jpg);
 }
 
-#buscaminas {
+table {
     box-shadow: 6px 6px 25px;
     background-color: rgb(197, 197, 197);
     margin: auto;
 }
 
-#buscaminas,
+table,
 td {
     border-collapse: collapse;
+    border: 1px solid black;
 }
 
 td {
@@ -27,7 +28,7 @@ h1 {
     color: whitesmoke;
     text-shadow: black 4px 4px 5px;
 }
-
+/* 
 .boton{
     width: 100%;
     height: 100%;
@@ -36,5 +37,5 @@ h1 {
 #inicio{
     width: 60%;
     height: 60%;
-}
+} */
 
