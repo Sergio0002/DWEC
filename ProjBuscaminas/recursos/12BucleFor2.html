@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=j, initial-scale=1.0" />
+    <title>Bucle For</title>
+
+    <script>
+      var trabajadores = new Array();
+      var persona = "";
+      var i = 0;
+
+      while (persona != "salir") {
+        persona = prompt("Introduce nombre trabajador");
+
+        trabajadores[i] = persona;
+
+        i++;
+      }
+
+      trabajadores.pop(); // borramos el último índice ("salir").
+
+      for (let i = 0; i < trabajadores.length; i++) {
+        document.write(trabajadores[i] + "<br>");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
