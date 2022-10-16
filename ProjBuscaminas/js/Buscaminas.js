@@ -4,7 +4,7 @@ function pedirdatos() {
     let numMinas = prompt('¿Cuántas minas quieres introducir?');
 
     arrayTablero = tableroVirtual(maxFilas, maxColumnas)
-    arrayTablero = colocaMinas(arrayTablero, maxFilas, maxFilas, numMinas);
+    arrayTablero = colocaMinas(arrayTablero, maxFilas, maxColumnas, numMinas);
     pintarTablero(arrayTablero, maxFilas, maxColumnas);
     numeroMinas(arrayTablero);
 }
