@@ -5,8 +5,8 @@ function pedirdatos() {
 
     arrayTablero = tableroVirtual(maxFilas, maxColumnas)
     arrayTablero = colocaMinas(arrayTablero, maxFilas, maxColumnas, numMinas);
+    arrayTablero = numeroMinas(arrayTablero, maxFilas, maxColumnas);
     pintarTablero(arrayTablero, maxFilas, maxColumnas);
-    numeroMinas(arrayTablero);
 }
 
 
@@ -40,10 +40,9 @@ function colocaMinas(arrayTablero, maxFilas, maxColumnas, numMinas) {
             contadorMinas++;
         }
     }
-    
+
     return arrayTablero;
 }
-
 
 function numeroMinas(arrayTablero, maxFilas, maxColumnas) {
     let numMinasAlrededor;
