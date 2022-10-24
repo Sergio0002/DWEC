@@ -36,7 +36,26 @@ class Tablero {
 
 }
 
+do {
+    var tableroPar = false;
 
-let memorin = new Tablero(4, 4);
-memorin.dibujarTablero();
-console.log(memorin.arrayTablero);
+    let filas = prompt("Introduce las filas del tablero");
+    let columnas = prompt("Introduce las columnas del tablero");
+
+    let total = filas * columnas;
+
+    if (total % 2 == 0) {
+        tableroPar = true;
+
+        let memorin = new Tablero(filas, columnas);
+        memorin.dibujarTablero();
+        console.log(memorin.arrayTablero);
+
+    } else {
+        alert("Introduce valores pares");
+    }
+
+} while (!tableroPar);
+
+
+
