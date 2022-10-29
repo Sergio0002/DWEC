@@ -1,30 +1,76 @@
-<!DOCTYPE html>
 <html lang="es-ES">
 
 <head>
     <meta charset="UTF-8">
-    <title>Memorin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <title>Reglas del juego</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 
 <body>
+    <div class="contenedor">
 
-    <h1>Memorin</h1>
+        <div class="primera_caja">
+            <h1>Juego de memoria</h1>
+        </div>
 
-    <h3>Elige el tamaño del tablero</h3>
-    <p>Recuerda que memorin es un juego de encontrar las parejas, así que tanto las filas como las columnas deberán ser
-        pares.</p>
-    <!-- <form action="js/tablero.js" method="post">
+        <div class="segunda_caja">
 
-        Filas: <input type="text" id="filas" selected>
-        Columas: <input type="text" id="columnas">
-        <input type="submit" name="enviar" id="enviar">
+            <div class="primera_columna">
+                <h3 class="subtitulo">Jugador 1</h3>
+                <ul class="navegador">
+                    <li><a href="juego.html">Partida nueva</a></li>
+                </ul>
+            </div>
 
-    </form> -->
+            <div class="segunda_columna"><br>
+                <h3>¡Bienvenido jugador!</h3><br>
 
-    <script src="js/tablero.js"></script>
+                <p class="reglas">Estás a punto de poner a prueba tu memoria. Pero antes deberías tomarte un momento
+                    para conocer las reglas del juego, y los parámetros para su correcto funcionamiento. Vamos allá!</p>
 
+                <p class="reglas"> Este juego consiste en buscar las imágenes que representan la misma figura en pareja
+                    de dos. Pero cuidado, si el tablero es muy grande, las parejas se repetirán, pues las imágenes no
+                    son infinitas
+                    😊
+                </p>
 
+                <p class="reglas"> <b>Parámetros:</b></p>
+
+                <p class="reglas">El jugador elige como de extenso es el tablero. <br>
+                    Los valores para elegir el tamaño del tablero serán siempre números enteros (1, 2, 3, 4…). <br>
+                    Al menos uno de los valores introducidos será un número par, pues el juego consiste en buscar las
+                    parejas. <br>
+                    Si se introduce por error un carácter no numérico, el juego volverá a pedir un valor correcto. <br>
+                    Si se introduce por error un número negativo, el juego volverá a pedir un valor correcto.</p>
+
+                <p class="reglas"> <b>Consejo:</b></p>
+
+                <p class="reglas">Si se elige un tablero muy grande, el juego puede tardar en ejecutarse. Se recomienda
+                    que el tablero no sea de más de 20 x 20 casillas.
+                    Y con toda esta información, ya estás preparado para poner a prueba tu memoria.
+                    ¡Pásalo genial!</p>
+            </div>
+
+            <div class="tercera_columna">
+                <h3 class="subtitulo">Información</h3>
+                <ul class="interes">
+                    <li><a href="index.html">Reglas del juego</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="tercera_caja">
+            <p> <span id="nombre"> <a href="https://www.linkedin.com/in/sergio-d%C3%ADaz-3a2b79243/"
+                        target="_blank">Sergio Díaz González</a></span>
+                <span id="ies"> <a href="http://www.iessonferrer.net/" target="_bank">IES Son Ferrer</a></span>
+            </p>
+        </div>
+
+    </div>
 </body>
 
 </html>
