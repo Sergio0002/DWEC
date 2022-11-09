@@ -1,4 +1,4 @@
-/* body {
+body {
     background-color: rgb(3, 84, 3);
     background-image: url(../img/textura_tapiz_verde.jpg);
 }
@@ -27,9 +27,9 @@ h1 {
     text-align: center;
     color: whitesmoke;
     text-shadow: black 4px 4px 5px;
-} */
+}
 
-table {
+/* table {
   text-align: center;
   margin: auto;
   margin: 5%;
@@ -47,4 +47,4 @@ td {
   width: 50px;
   height: 50px;
   text-align: center;
-}
+} */
