@@ -20,24 +20,33 @@ class Tablero {
     }
 
     dibujarTableroDOM() {
+
+        // 1. Añadir atributo id con el formato f(nº fila que nos encotramos)_c(nº columna que nos encotramos)
+        // 2. Añadir atributo dataset fila con valor de la fila en que te encuentras (1 para fila otro para columna) 
+        // 3. Añadir un evento a cada celda clic -> funcion despejar
+        //                                  clic -> contextMenu -> funcion marcar
+        // 4. Crear una funcion despejar y marcar -> añadir un alert para saber que hemos entrado.
+
         // Creamos el tablero en html con el DOM
 
         let tabla = document.createElement("table");
         let filas;
-        let columnas;
-        // document.write('<table>');
+        let columna;
+        let id;
 
         for (let i = 0; i < this.filas; i++) {
-            // document.write('<tr>');
             filas = document.createElement("tr");
             tabla.appendChild(filas);
 
             for (let j = 0; j < this.columnas; j++) {
-                columnas = document.createElement("td");
-                filas.appendChild(columnas);
-                // columnas.innerHTML = this.arrayTablero[i][j];
-                // document.write(`<td>${this.arrayTablero[i][j]}</td>`);
+                columna = document.createElement("td");
+                columna.id = "f" + i + "_c" + j;
+                filas.appendChild(columna);
+                // id = document.onclick(`${id[i][j]}`)
             }
+
+            // document.write(id);
+
         }
         document.body.appendChild(tabla);
     }
