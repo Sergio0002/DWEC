@@ -1,4 +1,5 @@
 class Tablero {
+    
     constructor(filas, columnas) {
         this.filas = filas;
         this.columnas = columnas;
@@ -32,20 +33,18 @@ class Tablero {
         let tabla = document.createElement("table");
         let filas;
         let columna;
-        let id;
-
+        
         for (let i = 0; i < this.filas; i++) {
             filas = document.createElement("tr");
             tabla.appendChild(filas);
 
             for (let j = 0; j < this.columnas; j++) {
                 columna = document.createElement("td");
-                columna.id = "f" + i + "_c" + j;
+                // document.write(columna.id = "f" + i + "_c" + j);
                 filas.appendChild(columna);
-                // id = document.onclick(`${id[i][j]}`)
+
             }
 
-            // document.write(id);
 
         }
         document.body.appendChild(tabla);

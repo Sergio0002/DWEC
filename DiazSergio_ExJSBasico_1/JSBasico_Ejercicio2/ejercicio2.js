@@ -9,14 +9,14 @@ class Nif {
     esCorrecto() {
         document.write("Dentro del método");
 
-        let largo = 7;
+        // TERMINAR ESTE EJERCICIO
 
-        if (largo == length(this.numero)) { 
-            return alert("Es correcto");
+        // if (largo == length(this.numero)) { 
+        //     return alert("Es correcto");
 
-        } else {
-            return alert("No es correcto");
-        }
+        // } else {
+        //     return alert("No es correcto");
+        // }
 
 
     }
