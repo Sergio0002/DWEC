@@ -1,5 +1,5 @@
 class Tablero {
-    
+
     constructor(filas, columnas) {
         this.filas = filas;
         this.columnas = columnas;
@@ -21,28 +21,35 @@ class Tablero {
     }
 
     dibujarTableroDOM() {
-
         // 1. Añadir atributo id con el formato f(nº fila que nos encotramos)_c(nº columna que nos encotramos)
         // 2. Añadir atributo dataset fila con valor de la fila en que te encuentras (1 para fila otro para columna) 
         // 3. Añadir un evento a cada celda clic -> funcion despejar
         //                                  clic -> contextMenu -> funcion marcar
         // 4. Crear una funcion despejar y marcar -> añadir un alert para saber que hemos entrado.
 
-        // Creamos el tablero en html con el DOM
+        // Para los métodos marcar() y despejar();
+                // 1. Obtener el nodo que produjo el evento
+                // 2. Obtener del nodo que produjo el evento el valor de su atributo data-fila y data-columna.
+                // 3. Alert ("Marcada celda(fila_columna);  para el método marcar.
+                // 4. Alert("Despejada celda(valor fila_columna); para el metodo despejar.
 
+        // Creamos el tablero en html con el DOM
         let tabla = document.createElement("table");
         let filas;
         let columna;
-        
+
         for (let i = 0; i < this.filas; i++) {
             filas = document.createElement("tr");
             tabla.appendChild(filas);
 
             for (let j = 0; j < this.columnas; j++) {
                 columna = document.createElement("td");
-                // document.write(columna.id = "f" + i + "_c" + j);
+                columna.id = "f" + i + "_c" + j;
+                columna.dataset.fila = i;
+                columna.dataset.columna = j;
+                columna.addEventListener("click", this.despejar);
+                columna.addEventListener("contextmenu", this.marcar);
                 filas.appendChild(columna);
-
             }
 
 
@@ -50,7 +57,18 @@ class Tablero {
         document.body.appendChild(tabla);
     }
 
+    marcar() {
+        alert("He marcado mina");
+    }
 
+    despejar() {
+        alert("Despejado");
+    }
+
+
+    prueba() {
+        document.getElementById().innerHTML = "Hello World";
+    }
 
     modificarFilas(nuevasFilas) {
         // Modificar el número de filas y volver a crear el tablero con las filas nuevas
@@ -82,7 +100,6 @@ class Buscaminas extends Tablero {
         let contadorMinas = 0;
         let posFila;
         let posColumna;
-
 
         while (contadorMinas < this.numMinas) {
             posFila = Math.floor(Math.random() * this.filas);
@@ -124,8 +141,7 @@ class Buscaminas extends Tablero {
 
 window.onload = function () {
 
-    let buscaminas1 = new Buscaminas(5, 5, 5);
+    let buscaminas1 = new Buscaminas(4, 4, 5);
     console.log(buscaminas1.arrayTablero);
     buscaminas1.dibujarTableroDOM();
-
 };
