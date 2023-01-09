@@ -35,7 +35,7 @@ class Tablero {
         document.write('</table>');
     }
 
-    dibujarTableroDOM(){
+    dibujarTableroDOM() {
         // Creamos el tablero en DOM
         let tabla = document.createElement('table');
         let fila;
@@ -50,7 +50,6 @@ class Tablero {
                 columna.id = `f${i}_c${j}`;
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
-                columna.dataset.despejado = false;
                 fila.appendChild(columna);
             }
         }
@@ -58,8 +57,8 @@ class Tablero {
         document.body.appendChild(tabla);
     }
 
-    
-    
+
+
 
     modificarFilas(nuevasFilas) {
         // Modificar el número de filas y volver a crear el tablero con las filas nuevas
@@ -82,10 +81,10 @@ class Buscaminas extends Tablero {
     constructor(filas, columnas, numMinas) {
         super(filas, columnas);
         this.numMinas = numMinas;
+        this.numBanderas = 0;
 
         this.colocarMinas();
         this.colocarNumMinas();
-        this.dibujarTableroDOM();
     }
 
     colocarMinas() {
@@ -128,20 +127,17 @@ class Buscaminas extends Tablero {
         }
     }
 
-    dibujarTableroDOM(){
+    dibujarTableroDOM() {
         super.dibujarTableroDOM();
 
         let celda;
 
-        this.despejar = this.despejar.bind(this);
-        this.marcar = this.marcar.bind(this);
-
         for (let i = 0; i < this.filas; i++) {
-            for (let j = 0; j < this.columnas; j++){
+            for (let j = 0; j < this.columnas; j++) {
                 celda = document.getElementById(`f${i}_c${j}`);
 
-                celda.addEventListener('click', this.despejar);
-                celda.addEventListener('contextmenu', this.marcar);
+                celda.addEventListener('click', this.despejar.bind(this));
+                celda.addEventListener('contextmenu', this.marcar.bind(this));
             }
         }
         console.log(this.arrayTablero);
@@ -150,52 +146,46 @@ class Buscaminas extends Tablero {
     despejar(elEvento) {
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-        
+
         this.despejarCelda(celda);
     }
 
     despejarCelda(celda) {
+
         let fila = parseInt(celda.dataset.fila);
         let columna = parseInt(celda.dataset.columna);
 
-        // Marcar la celda despejada
-        celda.dataset.despejado = true;
-        celda.style.backgroundColor = "lightgrey";
-        celda.removeEventListener('click', this.despejar);
-        celda.removeEventListener('contextmenu', this.marcar);
-
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
+        let esCero = (valorCelda == "0");
         let esBomba = (valorCelda == 'MINA');
-        let esVacio = (valorCelda == 0);
-        let estaDespejado;
         let bombaSeleccionadaMal;
 
         let rutaBandera = "file:///Applications/XAMPP/xamppfiles/htdocs/DWEC/ProjBuscaminas/img/bandera.jpg";
-        
+
         let arrayFilas;
-        let arrayColumnas; 
-        let celdaNueva;
+        let arrayColumnas;
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
-            
+            celda.removeEventListener('click', this.despejar.bind(this));
+            celda.removeEventListener('contextmenu', this.marcar.bind(this));
         } else if (esBomba) {
-            
+
             arrayFilas = celda.parentNode.parentNode.childNodes;
             for (let tr of arrayFilas) {
                 arrayColumnas = tr.childNodes;
-                for (let td of arrayColumnas){
-                    td.removeEventListener('click', this.despejar);
-                    td.removeEventListener('contextmenu', this.marcar);
+                for (let td of arrayColumnas) {
+                    td.removeEventListener('click', this.despejar.bind(this));
+                    td.removeEventListener('contextmenu', this.marcar.bind(this));
 
                     fila = td.dataset.fila;
                     columna = td.dataset.columna;
                     valorCelda = this.arrayTablero[fila][columna]
-                    if (td.lastChild != null){
-                        bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
-                    
-                        if (bombaSeleccionadaMal){
+                    if (td.lastChild != null) {
+                        bombaSeleccionadaMal = (td.lastChild.src == rutaBandera && valorCelda != 'MINA');
+
+                        if (bombaSeleccionadaMal) {
                             td.lastChild.src = "";
                             td.style.backgroundColor = 'red';
                             td.innerHTML = valorCelda;
@@ -203,66 +193,55 @@ class Buscaminas extends Tablero {
                             td.innerHTML = valorCelda;
                         }
                     } else if (valorCelda == 'MINA') {
-                            td.innerHTML = valorCelda;
+                        td.innerHTML = valorCelda;
                     }
                 }
             }
-            alert(`¡HAS PERDIDO!`);
-        }else if (esVacio) {
+            alert('¡HAS PERDIDO!');
+        } else if (valorCelda == "0") {
+            alert("Es cero");
 
-            for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
-                if (cFila >= 0 && cFila < this.filas) {
-                    for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
-                        if (cColumna >= 0 && cColumna < this.columnas) {
-                            celdaNueva = document.getElementById(`f${cFila}_c${cColumna}`)
-                            estaDespejado = (celdaNueva.dataset.despejado == 'true');
-                            if (!estaDespejado) {
-                                console.log(`f${cFila}_c${cColumna}`);
-                                this.despejarCelda(celdaNueva);
+            for (let fila = 0; fila < this.filas; fila++) {
+                for (let columna = 0; columna < this.columnas; columna++) {
+
+                    if (this.arrayTablero[fila][columna] == '0') {
+
+                        // alert("dentro del if = 0");
+
+                        for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
+                            if (cFila >= 0 && cFila < this.filas) {
+                                for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
+                                    if (cColumna >= 0 && cColumna < this.columnas) {
+
+                                        celdaComprobar = document.getElementById(`f${i}_c${j}`);
+                                        this.despejar(celdaComproba);
+
+                                        // código de las comprobaciones
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+
         }
 
     }
 
     marcar(elEvento) {
-        // Capturar el evento y el nodo que lo generó
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-
-        // Crear el elemento img
+        // Utilizando el elemento img
         let imagen = document.createElement('img');
         imagen.style.height = "50px";
 
-        // Definir las rutas relativas donde se encuentran las imágenes
-        let rutaBandera = 'img/bandera.jpg';
-        let rutaInterrogante = 'img/textura.jpg';
-
-        // Definir la ruta relativa de la imagen en la celda seleccionada
-        let rutaImagen;
-
-        // Buscar la ruta relativa de la imagen para la celda seleccionada
-        if (celda.lastChild != null) {
-            rutaImagen = celda.lastChild.src.split('/').slice(-2).join('/');
-        }
-
-        // Comprobar imagen en la celda
-        let noHayImagen = (celda.lastChild == null);
-        let esBandera = (rutaImagen == rutaBandera);
-        let esInterrogante = (rutaImagen == rutaInterrogante);
-
-        // Marcar las celdas con la imagen adecuada
-        if (noHayImagen) {
-            celda.removeEventListener('click', this.despejar);
+        if (celda.lastChild == null) {
             imagen.src = "img/bandera.jpg";
             celda.appendChild(imagen);
-        } else if (esBandera) {
-            celda.addEventListener('click', this.despejar);
+        } else if (celda.lastChild.src == "file:///Applications/XAMPP/xamppfiles/htdocs/DWEC/ProjBuscaminas/img/bandera.jpg") {
             celda.lastChild.src = "img/textura.jpg";
-        } else if (esInterrogante) {
+        } else if (celda.lastChild.src == "file:///Applications/XAMPP/xamppfiles/htdocs/DWEC/ProjBuscaminas/img/textura.jpg") {
             celda.removeChild(celda.lastChild);
         }
 
@@ -291,11 +270,12 @@ class Buscaminas extends Tablero {
                 break;
          }
         */
-            
+
     }
 
 }
 
-window.onload = function() {
+window.onload = function () {
     let buscaminas1 = new Buscaminas(5, 5, 5);
+    buscaminas1.dibujarTableroDOM();
 }
