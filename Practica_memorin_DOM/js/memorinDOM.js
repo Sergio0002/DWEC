@@ -1,9 +1,3 @@
-let cuerpo = document.body;
-let titulo = document.createElement('h1');
-cuerpo.appendChild(titulo);
-titulo.innerHTML = "Juego Memoria DOM";
-
-
 class Tablero {
 
     constructor(filas, columnas) {
@@ -26,18 +20,47 @@ class Tablero {
     }
 
 
-    dibujarTablero() {
+    // dibujarTableroHtml() {
 
-        document.write("<table>");
-        for (let filas = 0; filas < this.filas; filas++) {
-            document.write("<tr>");
-            for (let columnas = 0; columnas < this.columnas; columnas++) {
-                document.write(`<td> <img src="img/${this.arrayTablero[filas][columnas]}.png"> </td>`);
+    //     document.write("<table>");
+    //     for (let filas = 0; filas < this.filas; filas++) {
+    //         document.write("<tr>");
+    //         for (let columnas = 0; columnas < this.columnas; columnas++) {
+    //             document.write(`<td>${this.arrayTablero[filas][columnas]}</td>`);
+    //         }
+    //         document.write("</tr>")
+    //     }
+    //     document.write("</table>");
+    // }
+
+    dibujarTablero() {
+        // Creamos el tablero en DOM
+        let tabla = document.createElement('table');
+        let fila;
+        let columna;
+        let img;
+
+        for (let i = 0; i < this.filas; i++) {
+            fila = document.createElement('tr');
+            tabla.appendChild(fila);
+
+            for (let j = 0; j < this.columnas; j++) {
+                columna = document.createElement('td');
+                img = document.createElement('p')
+                columna.id = `f${i}_c${j}`;
+                columna.dataset.fila = i;
+                columna.dataset.columna = j;
+                fila.appendChild(columna);
+                columna.appendChild(img);
+                img.innerHTML = this.arrayTablero[i][j];
+
+                console.log(this.arrayTablero[i][j])
             }
-            document.write("</tr>")
         }
-        document.write("</table>");
+
+        document.body.appendChild(tabla);
     }
+
 
 }
 
@@ -45,7 +68,8 @@ class Tablero {
 
 class Memorin extends Tablero {
     totalCasillas = this.filas * this.columnas;
-    imagenes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    imagenes = ["&#128512;", "&#128513;", "&#128514;", "&#128515;", "&#128517;", "&#128520;", "&#128525;", "&#128526;", "&#128531;", "&#128536;"];
+    // imagenes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     imagenesDesordenadas = [];
 
     constructor(filas, columnas) {
@@ -57,7 +81,6 @@ class Memorin extends Tablero {
 
     desordenarImagenes(arrayImagenes) {
 
-        // Desordena las imágenes del array. (Fuente: https://www.ngeeks.com/javascript-avanzado-desordenar-un-array/)
         for (let i = 0; i < this.totalCasillas; i++) {
             arrayImagenes = arrayImagenes.sort(function () { return Math.random() - 0.5 });
         }
@@ -87,27 +110,26 @@ class Memorin extends Tablero {
         arrayDesordenado = this.desordenarImagenes(arrayDesordenado);
         let indice = 0;
 
-        // == Muestra el orden en que se van a pintar las imagenes (por número). ==
-        // document.write("<br>Array desordenado<br>");
-        // for (let i = 0; i < arrayDesordenado.length; i++) {
-        //     document.write(arrayDesordenado[i] + " -> ");
-        // }
-
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++) {
                 this.arrayTablero[i][j] = arrayDesordenado[indice];
                 indice++;
+
             }
         }
     }
+
 }
 
 
+
 // Se comprueba que los datos recibidos son correctos, y se inicia el programa.
+
+
 do {
     var valoresOk = false;
-    let filas = parseInt(prompt("Introduce las filas del tablero"));
-    let columnas = parseInt(prompt("Introduce las columnas del tablero"));
+    let filas = 4 //parseInt(prompt("Introduce las filas del tablero"));
+    let columnas = 4 // parseInt(prompt("Introduce las columnas del tablero"));
     let total = filas * columnas;
 
     if (Number.isInteger(filas) && Number.isInteger(columnas) && filas != 0 && columnas != 0 && filas > 1 && columnas > 1) {
@@ -124,3 +146,4 @@ do {
         alert("Escribe un número positivo");
     }
 } while (!valoresOk);
+
